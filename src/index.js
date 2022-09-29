@@ -1,13 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import './index.css';
+import Main, { FirstSection, LastSection, SecondSection } from './Main';
+
+const routes = createBrowserRouter([
+  {
+    path: '/', // <-- matching url
+    element: <Main />, // <-- matching parent component
+    children: [
+      {
+        path: 'first',
+        element: <FirstSection />
+      },
+      {
+        path: 'second',
+        element: <SecondSection />
+      },
+      {
+        path: 'fourth', // <-- matching url
+        element: <LastSection /> // <-- matching component
+      }
+    ]
+  },
+  {
+    path: '/old',
+    element: <App />
+  }
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={routes} />
   </React.StrictMode>
 );
 
